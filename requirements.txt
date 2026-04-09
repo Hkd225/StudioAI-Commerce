@@ -1,0 +1,13 @@
+streamlit>=1.45
+streamlit-drawable-canvas>=0.9.3
+pillow>=10.0
+numpy>=1.26
+python-dotenv>=1.0
+pytest>=8.0
+# Optional but recommended for real generation/inpainting
+torch>=2.2
+transformers>=4.39
+accelerate>=0.30
+safetensors>=0.4
+diffusers>=0.29
+huggingface-hub>=0.23
