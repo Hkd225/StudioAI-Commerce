@@ -1,73 +1,93 @@
-# StudioAI Commerce
+# StudioAI Commerce 📸✨
+**AI Product Photo Studio for E-Commerce & MSMEs**
+### By Muhammad Auffa Hakim Aditya
 
-StudioAI Commerce adalah versi repo yang dirapikan dari notebook submission Streamlit Stable Diffusion, lalu dinaikkan menjadi project **AI Product Photo Studio** sesuai blueprint pada file markdown.
 
-## Fitur utama
-- Generate product scene dari prompt
-- Upload foto produk
-- Auto-mask foreground sederhana
-- Background replacement
-- Manual inpainting
-- Outpainting / zoom out
-- Riwayat hasil
-- Export semua hasil ke ZIP
-- `MOCK_MODE` supaya app tetap bisa dijalankan tanpa GPU / tanpa model terunduh
 
-## Struktur project
-```text
+StudioAI Commerce is a Streamlit-based application specifically designed to help MSMEs (Micro, Small, and Medium Enterprises) and marketplace sellers create studio-quality product promotional visuals in seconds. Leveraging the power of Generative AI (Stable Diffusion), this application automates the product photo editing process, which is typically time-consuming and expensive.
+
+## ✨ Key Features
+- **Text-to-Image Scene Generation:** Create studio backgrounds or natural landscapes using only text prompts.
+- **Smart Auto-Masking:** Automatic product extraction using `rembg` (with a simple fallback mask).
+- **Background Replacement:** Instantly replace product backgrounds without external editing software.
+- **Manual Inpainting:** Edit specific areas of the image to add or remove objects.
+- **Outpainting / Zoom Out:** Expand the image canvas without distorting the main product's proportions.
+- **Batch Generation:** Generate 1 to 4 image variations simultaneously.
+- **Local History & Export:** Save generation history locally and download the final high-resolution PNG results.
+
+```
+
+## 📂 Directory Structure
+
 studioai-commerce/
-├── app/
-├── core/
-├── pipelines/
-├── services/
-├── assets/
-├── data/
-├── docs/
-├── notebooks/
-├── tests/
-├── app.py
-├── logic.py
+├── app/               # Streamlit UI and frontend components
+├── core/              # Core configurations and utilities
+├── pipelines/         # Logic for Stable Diffusion (Inpaint, T2I, Outpaint)
+├── services/          # Masking services integration (rembg) and image processing
+├── assets/            # Static application assets (logos, placeholders)
+├── data/              # Local history storage folder
+├── notebooks/         # Experimental notebooks (development)
+├── tests/             # Unit testing
+├── .env.example       # Environment variables template
+├── Dockerfile         # Docker configuration for deployment
+├── README.md
 ├── requirements.txt
-├── Dockerfile
-└── run.sh
+└── run.sh             # Bash script for quick run
 ```
 
-## Cara menjalankan
-### Opsi cepat
-```bash
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
+## ⚙️ System Requirements
+- **OS:** Linux / macOS / Windows (WSL recommended)
+- **GPU:** An NVIDIA GPU with at least 8GB of VRAM is highly recommended for fast image generation. (It can run on a CPU, but it will take significantly longer).
+- **Python:** Version 3.9 - 3.10
 
-### Mode mock (default)
-Mode ini aktif dari `.env.example` / environment dan tidak perlu download model. Cocok untuk demo struktur aplikasi.
+## 🚀 Local Setup
 
-```bash
-export MOCK_MODE=1
-streamlit run app.py
-```
+1. **Clone this repository:**
+   git clone https://github.com/USERNAME/studioai-commerce.git
+   cd studioai-commerce
 
-### Mode real Diffusers
-Kalau ingin pakai Stable Diffusion beneran:
-```bash
-export MOCK_MODE=0
-export HF_TOKEN=your_huggingface_token
-streamlit run app.py
-```
+2. **Create and activate a Virtual Environment:**
+   python -m venv .venv
+   source .venv/bin/activate   # For Linux / macOS
+   # .venv\Scripts\activate    # For Windows
 
-## File referensi yang disertakan
-- `docs/project_blueprint.md` -> isi file markdown yang kamu upload
-- `notebooks/original_submission.ipynb` -> notebook asli yang kamu upload
-- `docs/migration_notes.md` -> ringkasan perubahan dari notebook ke repo modular
+3. **Install dependencies:**
+   pip install -r requirements.txt
 
-## Catatan penting
-- Token `ngrok` hardcoded dari notebook **tidak** dipakai lagi.
-- Export hasil ada di tab **History**.
-- `logic.py` disediakan sebagai compatibility layer sederhana untuk notebook lama.
+4. **Environment Configuration:**
+   cp .env.example .env
+   # Edit the .env file if specific tokens are required (e.g., HuggingFace token)
 
-## Testing
-```bash
-pytest -q
-```
+5. **Run the Streamlit Application:**
+   streamlit run app/main.py
+
+## 🔄 Application Workflow
+1. **Upload:** Upload a raw product photo (e.g., shoes on the floor).
+2. **Generate / Edit Mode:** Select from the sidebar menu:
+   - *Background Replacement* to change the background.
+   - *Manual Inpainting* to tidy up details.
+   - *Outpainting* for landscape/portrait formats for store banners.
+3. **Prompting:** Enter a description of the desired background (example: "product resting on a wooden table with cinematic studio lighting").
+4. **Download:** Review the generated results, select the best one, and download it locally.
+
+## 📌 Technical & Security Notes
+- This project **has removed hardcoded tokens (such as ngrok/HuggingFace)** from all scripts and notebooks to prevent credential leaks. Please use the `.env` file.
+- Default models use `runwayml/stable-diffusion-v1-5` and `runwayml/stable-diffusion-inpainting`.
+- The application is fault-tolerant: If the `rembg` library fails to load or process, the system will automatically switch to a simple fallback mask method.
+
+## 🗺️ Development Roadmap
+- [ ] **Preset Categories:** Automated prompt templates (Skincare, Food, Fashion, Gadgets).
+- [ ] **Interactive UI:** Before/After slider for image comparison.
+- [ ] **AI Copywriter:** Automatic Instagram/Shopee caption generator based on product visuals.
+- [ ] **Cloud Deployment:** Publish the application to Hugging Face Spaces or AWS/GCP.
+
+------------------------------------------------------------
+
+## 👨‍💻 Author
+**Muhammad Auffa Hakim Aditya**
+
+This project was developed as an exploration of:
+- Generative AI & Stable Diffusion
+- Streamlit Web Application Development
+- AI-Powered E-Commerce Solutions
+- Computer Vision (Auto-Masking & Inpainting)
